@@ -1,0 +1,143 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <title> Admin Dashboard</title>
+</head>
+
+<style> 
+
+
+img {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 5px;
+  width: 150px;
+}
+table{
+    background-color: aquamarine;
+    border-radius: 25px;
+}
+th, td {
+    border-radius: 25px;
+    padding: 13px;
+    text-align: left;
+}
+
+
+ 
+.success{
+  list-style:none;
+  background-color: #2e6da4;
+  color:white;
+  box-shadow: 12px 12px 12px #e61c66;
+  text-align:center;
+}
+.animated {
+            -webkit-animation-duration: 10s;animation-duration: 5s;
+            -webkit-animation-fill-mode: both;animation-fill-mode: both;
+         }
+@keyframes fadeOut {
+   0% {opacity: 1;}
+   100% {opacity: 0;} 
+} 
+@-webkit-keyframes fadeOut {
+            0% {opacity: 1;}
+            100% {opacity: 0;}
+         }
+         
+         @keyframes fadeOut {
+            0% {opacity: 1;}
+            100% {opacity: 0;}
+         }
+         
+         .fadeOut {
+            -webkit-animation-name: fadeOut;
+            animation-name: fadeOut;
+         }
+
+div.c {
+  text-align: right;
+} 
+</style>
+<body>
+    {% if messages  %}
+    <div id = "animated-example" class = "animated fadeOut">
+    <ul class="'message"> 
+      {%for message in messages %}
+      <li {% if message.tags  %} class="{{message.tags }}"{% endif %}>{{ message }}</li>
+      {% endfor%}
+    </ul>
+    </div>
+{% endif %}
+    <div>
+    <h1> LIST OF CUSTOMERS  </h1>
+    <div class="c">
+        <a href="{% url 'logout' %}" class="btn btn-info btn-lg">
+            <span class="glyphicon glyphicon-log-out"></span> Log out
+          </a></div>
+       <br>       
+       <table> 
+        <h3>
+           <tr>
+            <th>Total Customers
+           </th>
+           </tr>
+           <tr>
+               <td>
+                   {{ total }}
+               </td>
+           </tr>
+           </h3>
+       </table>
+       <br><br>
+    <table>
+        <tr>
+            <th> CNR</th>
+            <th>Profile Picture</th>
+            <th>User Name</th>
+            <th>Name</th>
+            <th>Phone Number</th>
+            <th>Email</th>
+            <th>Address</th>
+            <!-- <th>Active Status</th> -->
+            <th> Date Of Birth </th>
+            <th> Gender </th>
+            <th> Occupation </th>
+            <th> Balance </th>
+            <th>UPDATE</th>
+            <th>DELETE</th>
+            <th>TRANSACTION</th>
+          </tr>
+{% for i in list %}
+    <tr>
+        <td>{{ forloop.counter }}</td>
+        <td><img src={% static i.profile_picture %}></td>
+        <td>{{i.username}}</td>
+        <td>{{i.name}}</td>
+        <td>{{i.mobile_number}}</td>
+        <td>{{i.email}}</td>
+        <td>{{i.address}}</td>
+        <td>{{i.dob}}</td>
+        <td>{{i.gender}}</td>
+        <td>{{i.occupation}}</td>
+        <td>{{i.balance}}</td>
+        <td> <a href="{% url 'update' i.id%}"><button type="button"  class="btn btn-success">UPDATE</button></a></td>
+        <td> <a href="{% url 'delete' i.id%}"><button type="button" class="btn btn-danger">DELETE</button><a></td>
+        <td><a href="{% url 'addtransaction' i.id%}"><button type="button" class="btn btn-primary">ADD TRANSACTION</button></a></td>
+       
+    </tr>
+{% endfor%}
+</table>
+</div>
+
+</body>
+</html>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOG IN PAGE</title>
+</head>
+<style>
+    .success{
+  list-style:none;
+  background-color: #2e6da4;
+  color:white;
+  box-shadow: 12px 12px 12px #e61c66;
+  text-align:center;
+}
+</style>
+<body>
+    <form method="POST">
+        {% csrf_token %} 
+{% if messages  %}
+        <ul class="'message"> 
+          {%for message in messages %}
+          <li {% if message.tags  %} class="{{message.tags }}"{% endif %}>{{ message }}</li>
+          {% endfor%}
+        </ul>
+{% endif %}
+        <label> Username </label>
+        {{ forms.username}}
+        <br><br>
+        <label> Password </label>
+        {{ forms.password }}
+        <br>
+        <input type="submit" value="Login" />
+        <br><br><br><br>
+     If you donot have an account, <a href="{% url 'register' %}">register</a> yourself 
+    <br>
+</body>
+</html>

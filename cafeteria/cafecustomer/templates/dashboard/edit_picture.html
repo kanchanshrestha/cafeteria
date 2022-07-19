@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <title> Transaction </title>
+</head>
+
+<style>  
+table{
+    background-color: aquamarine;
+    border-radius: 25px;
+}
+th, td {
+    border-radius: 25px;
+    padding: 13px;
+    text-align: left;
+}
+
+div{
+    background-color: #EF959D;
+}
+ 
+</style>
+<body>
+    {{ request.user }}
+    
+    <div>
+    <h1> Number of Transactions  </h1>
+       <br>       
+       <table> 
+        <h3>
+           <tr>
+            <th>Total Transactions
+           </th>
+           </tr>
+           <tr>
+               <td>
+                   {{ total }}
+               </td>
+           </tr>
+           </h3>
+       </table>
+    <table>
+        <tr>
+            <th> TXN NO. </th>
+            <th>Description</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Amount</th>
+            <th>Transaction Type</th>
+          </tr>
+          
+{% for i in list %}
+<tr>
+        <td>{{ forloop.counter }}</td>
+        <!-- <td>{{i.user}}</td> -->
+        <td>{{ i.description }}</td>
+        <td>{{ i.date }}</td>
+        <td>{{ i.time }}</td>
+        <td>{{ i.amount }}</td>
+        <td>{{ i.transaction_type }}</td>
+    </tr>
+{% endfor%}
+
+</table>
+</div>
+</body>
+</html>
+</body>
+</html>

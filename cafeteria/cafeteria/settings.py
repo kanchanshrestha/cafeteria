@@ -41,8 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     #cafeteria project
     'user',
-    'customer',
-    'transaction',
+    'cafecustomer',
 ]
 
 MIDDLEWARE = [
@@ -137,7 +136,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = 'static/'
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
@@ -145,3 +144,28 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL='user.User'
+
+
+STATIC_URL = '/static/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
+MEDIA_URL = '/images/'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static/images')
+]
+
+
+
+# STATIC_URL = 'static/'
+
+# # MEDIA_ROOT is for server path to store files in the computer.
+# MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
+
+# # MEDIA_URL is the reference URL for browser to access the files over Http.
+# MEDIA_URL = '/media/'
+
+# # MEDIA_URL = 'images/'
+
+# STATICFILES_DIR=[
+#     os.path.join(BASE_DIR, 'static')
+# ]

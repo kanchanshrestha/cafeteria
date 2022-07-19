@@ -1,0 +1,243 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Dashboard</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    .row.content {height: 550px}
+    
+    /* Set gray background color and 100% height */
+    .sidenav {
+      background-color: #f1f1f1;
+      height: 100%;
+    }
+        
+    /* On small screens, set height to 'auto' for the grid */
+    @media screen and (max-width: 767px) {
+      .row.content {height: auto;} 
+    }
+
+    .success{
+  list-style:none;
+  background-color: #2e6da4;
+  color:white;
+  box-shadow: 12px 12px 12px #e61c66;
+  text-align:center;
+}
+.animated {
+            -webkit-animation-duration: 10s;animation-duration: 5s;
+            -webkit-animation-fill-mode: both;animation-fill-mode: both;
+         }
+@keyframes fadeOut {
+   0% {opacity: 1;}
+   100% {opacity: 0;} 
+} 
+@-webkit-keyframes fadeOut {
+            0% {opacity: 1;}
+            100% {opacity: 0;}
+         }
+         
+         @keyframes fadeOut {
+            0% {opacity: 1;}
+            100% {opacity: 0;}
+         }
+         
+         .fadeOut {
+            -webkit-animation-name: fadeOut;
+            animation-name: fadeOut;
+         }
+
+img {
+  width: 100px;
+  height: 100px;
+  text-align: left;
+  border: 1px solid #ddd;
+  padding: 5px;
+  border-radius: 50%;
+}
+table{
+    background-color: aquamarine;
+    border-radius: 25px;
+    height: 250px
+    
+}
+th, td {
+    border-radius: 25px;
+    padding: 5px;
+    text-align: left;
+    text-indent: 2px;
+}
+
+
+
+.tableFixHead {
+        width: 105%;
+        overflow-y: auto;
+        height: 250px
+      }
+      .tableFixHead thead th {
+        position: sticky;
+        top: 0;
+      }
+ 
+
+
+  </style>
+</head>
+<body>
+  {% if messages  %}
+  <div id = "animated-example" class = "animated fadeOut">
+        <ul class="'message"> 
+          {%for message in messages %}
+          <li {% if message.tags  %} class="{{message.tags }}"{% endif %}>{{ message }}</li>
+          {% endfor%}
+        </ul>
+        </div>
+{% endif %}
+
+<nav class="navbar navbar-inverse visible-xs">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#">Logo</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Dashboard</a></li>
+        <li><a href="{% url 'viewtransactions' %}">  <button type="button" class="btn btn-info">Transaction Log</button></a> </li>
+        <li><a href="#">Gender</a></li>
+        <li><a href="#">Geo</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container-fluid">
+  <div class="row content">
+    <div class="col-sm-3 sidenav hidden-xs">
+      <img src ={% static user.profile_picture %} class="rounded-circle">
+      <br><br>
+      <p>Balance:  {{ user.balance }}</p> 
+ <a href="{% url 'addbalance' user.id   %}"><button type="button"  class="btn btn-success">Add Balance</button></a>
+<br><br>
+      <ul class="nav nav-pills nav-stacked">
+        <li class="active"><a href="#section1">Dashboard</a></li>
+        <li><a href="{% url 'viewtransactions' %}"> Transaction Log</a> </li>
+        
+        <div class="tableFixHead">
+          <table>
+              <tr>
+                  
+                  <th>Description</th>
+                  <th>Date</th>
+                  <th>Time</th>
+                  <th>Amount</th>
+                  <th>Transaction Type</th>
+                </tr>
+                
+      {% for i in transaction %}
+      <tr>
+             
+              <!-- <td>{{i.user}}</td> -->
+              <td>{{ i.description }}</td>
+              <td>{{ i.date }}</td>
+              <td>{{ i.time }}</td>
+              <td>{{ i.amount }}</td>
+              <td>{{ i.transaction_type }}</td>
+          </tr>
+      {% endfor%}
+      
+      </table>
+        </div>
+      </ul><br>
+    </div>
+    <br>
+    
+    <div class="col-sm-9">
+      <div class="well">
+        <h4>Dashboard</h4>
+        <p>Some text..</p>
+      </div>
+      <div class="row">
+        <div class="col-sm-3">
+          <div class="well">
+            <h4>Users</h4>
+            <p>1 Million</p> 
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="well">
+            <h4>Pages</h4>
+            <p>100 Million</p> 
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="well">
+            <h4>Sessions</h4>
+            <p>10 Million</p> 
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="well">
+            <h4>Bounce</h4>
+            <p>30%</p> 
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="well">
+            <p>Text</p> 
+            <p>Text</p> 
+            <p>Text</p> 
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="well">
+            <p>Text</p> 
+            <p>Text</p> 
+            <p>Text</p> 
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="well">
+            <p>Text</p> 
+            <p>Text</p> 
+            <p>Text</p> 
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-8">
+          <div class="well">
+            <p>Text</p> 
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="well">
+            <p>Text</p> 
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<p> Haven't Competed Your Registration?</p>
+<p>Click Here to Complete</p>
+ <a href="{% url 'register' user.id %}"><button type="button"  class="btn btn-success">REGISTER</button></a> 
+<center> <a href="{% url 'logout' %}" class="btn btn-info btn-lg">
+  <span class="glyphicon glyphicon-log-out"></span> Log out
+</a></center>
+</body>
+</html>
+
