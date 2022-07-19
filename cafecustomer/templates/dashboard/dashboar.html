@@ -1,0 +1,207 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Dashborad</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Style the header */
+header {
+  background-color:#FFF8DC;
+  padding: 30px;
+  font-size: 35px;
+  color: #008B8B;
+}
+
+/* Create two columns/boxes that floats next to each other */
+nav {
+  float: left;
+  width: 40%;
+  height: auto; /* only for demonstration, should be removed */
+  background: #ccc;
+  padding: 20px;
+}
+
+/* Style the list inside the menu */
+nav ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+article {
+  float: left;
+  padding: 20px;
+  width: 70%;
+  background-color: #f1f1f1;
+  height: auto; /* only for demonstration, should be removed */
+}
+
+/* Clear floats after the columns */
+section::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Style the footer */
+footer {
+  background-color: #ffffda;
+  padding: 10px;
+  text-align: center;
+  color: white;
+}
+
+
+span {
+    display: inline-block;
+    width: 70px;
+    height: 70px;
+    margin: 6px;
+    background-color: #555;
+  }
+
+img {
+  width: 100px;
+  height: 100px;
+  text-align: left;
+  border: 1px solid #ddd;
+  padding: 5px;
+  border-radius: 50%;
+}
+
+.success{
+  list-style:none;
+  background-color: #2e6da4;
+  color:white;
+  box-shadow: 12px 12px 12px #e61c66;
+  text-align:center;
+}
+.animated {
+            -webkit-animation-duration: 10s;animation-duration: 5s;
+            -webkit-animation-fill-mode: both;animation-fill-mode: both;
+         }
+@keyframes fadeOut {
+   0% {opacity: 1;}
+   100% {opacity: 0;} 
+} 
+@-webkit-keyframes fadeOut {
+            0% {opacity: 1;}
+            100% {opacity: 0;}
+         }
+         
+         @keyframes fadeOut {
+            0% {opacity: 1;}
+            100% {opacity: 0;}
+         }
+         
+         .fadeOut {
+            -webkit-animation-name: fadeOut;
+            animation-name: fadeOut;
+         }
+
+         table{
+    background-color: aquamarine;
+    border-radius: 25px;
+}
+th, td {
+    border-radius: 25px;
+    padding: 13px;
+    text-align: left;
+}
+</style>
+</head>
+<body>
+  {% if messages  %}
+  <div id = "animated-example" class = "animated fadeOut">
+        <ul class="'message"> 
+          {%for message in messages %}
+          <li {% if message.tags  %} class="{{message.tags }}"{% endif %}>{{ message }}</li>
+          {% endfor%}
+        </ul>
+        </div>
+{% endif %}
+
+
+<header>
+  <center> <h2>Dashborad</h2> </center>
+  <img src ={% static user.profile_picture %} class="rounded-circle">
+</header>
+
+<br><br>
+ <p>Balance:  {{ user.balance }}</p> 
+ <a href="{% url 'addbalance' user.id   %}"><button type="button"  class="btn btn-success">Add Balance</button></a>
+
+<section> 
+  <nav>
+    <ul>
+      <p> Haven't Competed Your Registration?</p>
+      <p>Click Here to Complete</p>
+      <li> <a href="{% url 'register' user.id %}"><button type="button"  class="btn btn-success">REGISTER</button></a> </li>
+
+      <br>
+      <li>
+      <a href="{% url 'viewtransactions' %}">  <button type="button" class="btn btn-info">Transaction Log</button></a> </li>
+
+    </ul>
+    <ul>
+      <p>Transactions </p>
+      <table>
+        <tr>
+            <th> TXN NO. </th>
+            <th>Description</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Amount</th>
+            <th>Transaction Type</th>
+          </tr>
+          {% for i in list %}
+          <tr>
+                  <td>{{ forloop.counter }}</td>
+                  <!-- <td>{{i.user}}</td> -->
+                  <td>{{ i.description }}</td>
+                  <td>{{ i.date }}</td>
+                  <td>{{ i.time }}</td>
+                  <td>{{ i.amount }}</td>
+                  <td>{{ i.transaction_type }}</td>
+              </tr>
+          {% endfor%}
+
+    </ul>
+  </nav>
+
+
+
+
+    <a href="{% url 'logout' %}" class="btn btn-info btn-lg"> <span class="glyphicon glyphicon-log-out"></span> Log out</a> 
+</body>
+</html>
+
+  
+  <!-- <article>
+    <h1>Expense Management System</h1>
+    <p>An expense management solution is a system that intelligently uses automation to provide a company with the ability to process, pay, and audit employee costs.</p>
+    <p>The goal of automating your cost management operations is to reduce time, increase compliance, and improve employee experience. Here are a few aspects to look for in a superb expenditure management solution:</p>
+    <ul>
+      <li>Tracks expense data securely and provides detailed reporting</li>
+      <li>Automatically populates expense reports using electronic receipts </li>
+      <li>Alerts you to out of balance </li>
+      <li>Simple and easy-to-use functionality for employees </li>
+    </ul>
+  </article> -->

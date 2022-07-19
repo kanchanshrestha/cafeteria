@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOGIN PAGE</title>
+</head>
+<style>
+      input[type="text"],
+    select {
+      width: 35%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      display: inline-block;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    input[type="number"],
+    select {
+      width: 35%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      display: inline-block;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    input[type="submit"] {
+      width: 35%;
+      background-color: #4caf50;
+      color: white;
+      padding: 14px 20px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      
+    }
+    input[type="password"],
+    select {
+      width: 35%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      display: inline-block;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #45a049;
+    }
+
+    div {
+      border-radius: 25px;
+      background-color: #eea29a;
+      padding: 20px;
+      width: 50%;
+    }
+    .success{
+  list-style:none;
+  background-color: #2e6da4;
+  color:white;
+  box-shadow: 12px 12px 12px #e61c66;
+  text-align:center;
+}
+.animated {
+            -webkit-animation-duration: 10s;animation-duration: 5s;
+            -webkit-animation-fill-mode: both;animation-fill-mode: both;
+         }
+@keyframes fadeOut {
+   0% {opacity: 1;}
+   100% {opacity: 0;} 
+} 
+@-webkit-keyframes fadeOut {
+            0% {opacity: 1;}
+            100% {opacity: 0;}
+         }
+         
+         @keyframes fadeOut {
+            0% {opacity: 1;}
+            100% {opacity: 0;}
+         }
+         
+         .fadeOut {
+            -webkit-animation-name: fadeOut;
+            animation-name: fadeOut;
+         }
+
+</style>
+<body>
+  <center>
+  <div>
+    <form method="POST">
+        {% csrf_token %} 
+        {% if messages  %}
+        <div id = "animated-example" class = "animated fadeOut">
+        <ul class="'message"> 
+          {%for message in messages %}
+          <li {% if message.tags  %} class="{{message.tags }}"{% endif %}>{{ message }}</li>
+          {% endfor%}
+        </ul>
+      </div>
+      {% endif %}
+        <label> Username </label>
+        {{ forms.username}}
+        <br><br>
+        <label> Password </label>
+        {{ forms.password }}
+        <br>
+        <input type="submit" value="Login" />
+        <!-- <a href="{% url 'dashboard' %}"><button type="button"  class="btn btn-success">Log In</button></a>
+         -->
+         <!-- <button type="submit">Login</button> -->
+        <br><br><br><br>
+     Don't have an account? <a href="{% url 'registration' %}">Register</a> yourself 
+    <br>
+    </form>
+  </div>
+</center>
+</body>
+</html>

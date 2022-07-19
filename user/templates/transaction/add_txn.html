@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+ 
+    <title>ADD TRANSACTION</title>
+</head>
+<style>
+     input[type="text"],
+    select {
+      width: 35%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      display: inline-block;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    input[type="number"],
+    select {
+      width: 35%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      display: inline-block;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    input[type="submit"] {
+      width: 35%;
+      background-color: #4caf50;
+      color: white;
+      padding: 14px 20px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      
+    }
+    input[type="email"],
+    select {
+      width: 35%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      display: inline-block;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    input[type="password"],
+    select {
+      width: 35%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      display: inline-block;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    input[type="date"],
+    select {
+      width: 35%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      display: inline-block;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    input[type="submit"]:hover {
+      background-color: #45a049;
+    }
+
+    div {
+      border-radius: 25px;
+      background-color: #f8beed;
+      padding: 20px;
+      width: 50%;
+    }
+</style>
+<body>
+  <center>
+  <div>
+    <form method="POST">
+        {% csrf_token %} 
+      <!-- <label> User </label>
+      {{forms.username}} -->
+      <br><br>
+      <label> Description </label>
+      {{ forms.description }}
+      <br><br>
+      <label> Date </label>
+      {{ forms.date }}
+      <br><br>
+  
+      <label> Time</label>
+      {{ forms.time }}
+      <br><br>
+      <label> Amount </label>
+      {{ forms.amount }}
+      <br><br>
+      <label> Transaction Type </label>
+      {{ forms.transaction_type }}
+      <br><br>
+      
+    <input type="submit" value="Add Transaction" />
+    <br><br>
+    
+</form>
+</div>
+</center>
+</body>
+</html>
