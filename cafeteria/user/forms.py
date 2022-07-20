@@ -1,7 +1,10 @@
 from django.db import models
 from django import forms
 from user.models import User
+from cafecustomer.models import Customer
 from user.models import Transaction
+from django.forms import ValidationError
+
 
 GENDER=[
     ('M','Male'),
@@ -32,6 +35,20 @@ class UserForm(forms.ModelForm):
             'gender':forms.RadioSelect(choices=GENDER),
             'occupation':forms.TextInput(attrs={"placeholder":"Enter Your Occupation"}),
             }
+
+    def clean_username(self):
+        username = self.cleaned_data.get('username')
+        if not username:
+                raise forms.ValidationError('This Field is Required')
+        # for instance in User.objects.all():
+        #     if instance.username==username:
+        #         raise forms.ValidateError(username +'is already created')
+        #     return username
+        user=User.objects.filter(username=username).exists()
+        if user:
+            raise ValidationError(username +'already exist, Choose another Username')
+        return username
+
 
 class UpdateForm(forms.ModelForm):
 
@@ -76,8 +93,7 @@ class TransactionForm(forms.ModelForm):
 
     
 
-	    # if not category:
-		# raise forms.ValidationError('This field is required')
+	  
 		    
 
 # class LoginForm(forms.ModelForm):

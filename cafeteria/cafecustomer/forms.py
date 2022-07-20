@@ -27,14 +27,7 @@ class CustomerForm(forms.ModelForm):
             'occupation':forms.TextInput(attrs={"placeholder":"Enter Your Occupation"}),
             }
         
-    def clean_username(self):
-        username = self.cleaned_data.get('username')
-        if not username:
-            raise forms.ValidationError('This Field is Required')
-        for instance in Customer.objects.all():
-            if instance.username==username:
-                raise forms.ValidateError(username +'is already created')
-            return username
+
 
 class LoginForm(forms.ModelForm):
     class Meta:

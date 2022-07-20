@@ -51,35 +51,6 @@ def deletecustomer(request,id):
     return render(request, 'admindash/delete_customer.html')
 
 
-
-
-
-    # User.objects.get(id=id)
-    # return redirect("/user/admindashboard/")
-
-# @transaction.atomic
-# def addtransaction(request,id):
-#     user=User.objects.get(id=id)
-#     forms=TransactionForm()
-#     if request.method=="POST":
-#         forms=TransactionForm(request.POST)
-#         if forms.is_valid():
-#             transacation=forms.save(commit=False)
-#             transacation.user=user
-#             forms.save()
-#             messages.success(request,'Transaction Added Sucessfully')
-#             return redirect('/user/admindashboard') 
-#         else:
-#             messages.error(request,forms.errors)
-#             print(forms.errors)
-        
-#     context={
-#         "forms":forms
-#     }
-  
-#     return render(request,'transaction/add_txn.html',context)
-
-
 @login_required(login_url='/customer/login')
 def addtransaction(request,id):
     user=User.objects.get(id=id)
@@ -110,12 +81,6 @@ def addtransaction(request,id):
   
     return render(request,'transaction/add_txn.html',context)
 
-# if user.transaction_type=='income':
-#                 user=User.objects.filter(id=id).update(balance= user.balance + int(request.POST['balance']))
-
-#             else:
-#                 user=User.objects.filter(id=id).update(balance= user.balance - int(request.POST['balance'])) 
-
 def customer_transactionlist(request):
     transactions=Transaction.objects.all()
     totalnumber=transactions.count()
@@ -126,8 +91,6 @@ def customer_transactionlist(request):
     }
 
     return render(request,'transaction/transaction.html',transactionlist)
-
-
 
 def customerlist(request):
    customers=Customer.objects.all()

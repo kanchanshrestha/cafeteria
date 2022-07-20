@@ -28,14 +28,25 @@ def registration(request):
             # Customer.objects.create(username=request.POST["username"], name=request.POST["name"] , mobile_number=request.POST["mobile_number"])
             return redirect('/customer/login')
             
-        else:
-            return HttpResponse(forms.errors)
+
     context={
         "forms":forms
     }
   
     return render (request,'customerlogin/customerregister.html',context)
 # Create your views here.
+
+# username = self.cleaned_data.get('username')
+#   
+        # 
+#       try: 
+        #   for instance in Customer.objects.all():
+        #     if instance.username==username:
+        #         raise forms.ValidateError(username +'is already created')
+#  except:  
+ #         return Exception(username +'is already created') 
+
+
 
 @login_required(login_url='/customer/login')
 def updateregisterform(request,id):
@@ -93,8 +104,11 @@ def loginform(request):
             messages.success(request,"Login Sucessful") 
             return redirect('/customer/dashboard')
             # return render(request,'dashboard/dashboard.html', {"user":user})            
-        else:
-            return render(request, 'customerlogin/customerlogin.html')
+        else :
+            return HttpResponse("Couldn't find your Account")
+        # else:
+        #     return HttpResponse("Invalid Password")
+           
             
             
     context={
@@ -102,7 +116,11 @@ def loginform(request):
     }
   
     return render (request,'customerlogin/customerlogin.html',context)
-
+#   elif:
+#   if username is None:
+#       return HttpResponse("Invalid Username")
+#   else:
+#       return HttpResponse("Invalid Password")
 
 
 @login_required(login_url='/customer/login')

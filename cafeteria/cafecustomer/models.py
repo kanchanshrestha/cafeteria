@@ -3,6 +3,7 @@ from tkinter import CASCADE
 from django.db import models
 from datetime import datetime, date
 from user.models import User
+from django import forms
 # Create your models here.
 
 class Customer(models.Model):
@@ -21,6 +22,9 @@ class Customer(models.Model):
 
     class Meta:
         db_table="Customer"
+
+ 
+            
 
 class Login(models.Model):
     username=models.ForeignKey(User,on_delete=models.CASCADE)
