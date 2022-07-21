@@ -141,7 +141,9 @@ th, td {
 
 <header>
   <center> <h2>Dashborad</h2> </center>
-  <img src ={% static user.profile_picture %} class="rounded-circle">
+  <img src ={% static user.profile_picture %} class="rounded-circle"> <a href="{% url 'edit_picture' %}">
+    <span class="glyphicon glyphicon-pencil"></span>
+  </a>
 </header>
 
 <br><br>

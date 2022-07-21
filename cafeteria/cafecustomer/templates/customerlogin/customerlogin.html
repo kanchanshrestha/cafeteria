@@ -7,6 +7,17 @@
     <title>LOGIN PAGE</title>
 </head>
 <style>
+      .errorlist
+    {
+      list-style-type: none;
+      color: #DC143C;
+    }
+
+    .error
+    {
+      list-style-type: none;
+      color: #DC143C;
+    }
       input[type="text"],
     select {
       width: 35%;
@@ -56,9 +67,11 @@
 
     div {
       border-radius: 25px;
-      background-color: #eea29a;
+      background-color: #FFF8DC;
       padding: 20px;
       width: 50%;
+      margin: auto;
+      text-align: center;
     }
     .success{
   list-style:none;
@@ -93,28 +106,22 @@
 </style>
 <body>
 
-  {{ forms.errors }}
-  
-  <center>
   <div>
+
     <form method="POST">
         {% csrf_token %} 
-        {% if messages  %}
-        <div id = "animated-example" class = "animated fadeOut">
-        <ul class="'message"> 
-          {%for message in messages %}
-          <li {% if message.tags  %} class="{{message.tags }}"{% endif %}>{{ message }}</li>
-          {% endfor%}
-        </ul>
-      </div>
-      {% endif %}
         <label> Username </label>
         {{ forms.username}}
-        <br><br>
+        <br>
+        <!-- {{ forms.username.errors }} <br> -->
+
         <label> Password </label>
         {{ forms.password }}
         <br>
         <input type="submit" value="Login" />
+        <br>
+        {{ forms.password.errors }}
+
         <!-- <a href="{% url 'dashboard' %}"><button type="button"  class="btn btn-success">Log In</button></a>
          -->
          <!-- <button type="submit">Login</button> -->
@@ -123,6 +130,6 @@
     <br>
     </form>
   </div>
-</center>
+
 </body>
 </html>

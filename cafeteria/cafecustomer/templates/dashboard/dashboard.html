@@ -93,7 +93,7 @@ th, td {
 <body>
   {% if messages  %}
   <div id = "animated-example" class = "animated fadeOut">
-        <ul class="'message"> 
+        <ul class="message"> 
           {%for message in messages %}
           <li {% if message.tags  %} class="{{message.tags }}"{% endif %}>{{ message }}</li>
           {% endfor%}
@@ -126,6 +126,7 @@ th, td {
   <div class="row content">
     <div class="col-sm-3 sidenav hidden-xs">
       <img src ={% static user.profile_picture %} class="rounded-circle">
+
       <br><br>
       <p>Balance:  {{ user.balance }}</p> 
  <a href="{% url 'addbalance' user.id   %}"><button type="button"  class="btn btn-success">Add Balance</button></a>

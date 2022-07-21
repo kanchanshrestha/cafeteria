@@ -4,72 +4,98 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <title> Transaction </title>
+    <title>Complete Your Registration</title>
 </head>
+<style>
 
-<style>  
-table{
-    background-color: aquamarine;
-    border-radius: 25px;
-}
-th, td {
-    border-radius: 25px;
-    padding: 13px;
-    text-align: left;
-}
+    input[type="text"],
+    select {
+      width: 35%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      display: inline-block;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    input[type="number"],
+    select {
+      width: 35%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      display: inline-block;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
 
-div{
-    background-color: #EF959D;
+    input[type="submit"] {
+      width: 35%;
+      background-color: #4caf50;
+      color: white;
+      padding: 14px 20px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      
+    }
+    input[type="email"],
+    select {
+      width: 35%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      display: inline-block;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    input[type="date"],
+    select {
+      width: 35%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      display: inline-block;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+  
+    input[type="submit"]:hover {
+      background-color: #45a049;
+    }
+
+    div {
+      border-radius: 25px;
+      background-color: #eea29a;
+      padding: 20px;
+      width: 50%;
+    }
+.success{
+  list-style:none;
+  background-color: #2e6da4;
+  color:white;
+  box-shadow: 12px 12px 12px #e61c66;
+  text-align:center;
 }
- 
 </style>
 <body>
-    {{ request.user }}
+  <center>
+  <div>
+    <form method="POST" enctype='multipart/form-data'>
+        {% csrf_token %} 
+      <br><br>
+      <label> Profice Picture </label>
+        {{ forms.profile_picture }}
+        
+      <br><br>
+      <a href="{% url 'dashboard' %}"><div class="btn btn-primary">Upload</div></a>
+    <!-- <input type="submit" value="Submit" /> -->
+    <br><br>
     
-    <div>
-    <h1> Number of Transactions  </h1>
-       <br>       
-       <table> 
-        <h3>
-           <tr>
-            <th>Total Transactions
-           </th>
-           </tr>
-           <tr>
-               <td>
-                   {{ total }}
-               </td>
-           </tr>
-           </h3>
-       </table>
-    <table>
-        <tr>
-            <th> TXN NO. </th>
-            <th>Description</th>
-            <th>Date</th>
-            <th>Time</th>
-            <th>Amount</th>
-            <th>Transaction Type</th>
-          </tr>
-          
-{% for i in list %}
-<tr>
-        <td>{{ forloop.counter }}</td>
-        <!-- <td>{{i.user}}</td> -->
-        <td>{{ i.description }}</td>
-        <td>{{ i.date }}</td>
-        <td>{{ i.time }}</td>
-        <td>{{ i.amount }}</td>
-        <td>{{ i.transaction_type }}</td>
-    </tr>
-{% endfor%}
-
-</table>
+    
+</form>
 </div>
-</body>
-</html>
+</center>
 </body>
 </html>

@@ -78,18 +78,23 @@ def updateregisterform(request,id):
 #         user = authenticate(username=username, password=password)
 #         login(request,user)
 #         if user is not None:
-#             messages.success(request,"Login Sucessful") 
-#             return redirect('/customer/dashboard')
+#             if user.is_superuser==1:
+#                 messages.success(request,"Login Sucessful") 
+#                 return redirect('/user/admindashboard')
 #             # return render(request,'dashboard/dashboard.html', {"user":user})            
+#             elif user.is_customer==1:
+#                 messages.success(request,"Login Sucessful") 
+#                 return redirect('/customer/dashboard')
 #         else:
-#             return render(request, 'customerlogin/customerlogin.html')
-            
+#             messages.error(request,'username or password not correct')
+#             return redirect('login')
             
 #     context={
 #         "forms":forms
 #     }
   
 #     return render (request,'customerlogin/customerlogin.html',context)
+
 def loginform(request):
     forms=LoginForm()
     if request.method=='POST':
@@ -97,28 +102,27 @@ def loginform(request):
         username=request.POST['username']
         password=request.POST['password']
         user = authenticate(username=username, password=password)
-        login(request,user)
-        if request.user.is_superuser==1:
-            return redirect('/user/admindashboard') 
         if user is not None:
-            messages.success(request,"Login Sucessful") 
-            return redirect('/customer/dashboard')
+            login(request,user)
+            if user.is_superuser==1:
+                messages.success(request,"Login Sucessful") 
+                return redirect('/user/admindashboard')
             # return render(request,'dashboard/dashboard.html', {"user":user})            
-        else :
-            return HttpResponse("Couldn't find your Account")
-        # else:
-        #     return HttpResponse("Invalid Password")
-           
-            
+            elif user.is_customer==1:
+                messages.success(request,"Login Sucessful") 
+                return redirect('/customer/dashboard')
+    
             
     context={
         "forms":forms
     }
   
     return render (request,'customerlogin/customerlogin.html',context)
+
+
 #   elif:
 #   if username is None:
-#       return HttpResponse("Invalid Username")
+#       return HttpResponse("Couldn't find your Account")
 #   else:
 #       return HttpResponse("Invalid Password")
 
@@ -177,6 +181,9 @@ def user_logout(request):
     logout(request)
     messages.success(request,'Logout Sucessful')
     return redirect('/customer/login')
+
+def edit_picture(request):
+    pass
 
 
 

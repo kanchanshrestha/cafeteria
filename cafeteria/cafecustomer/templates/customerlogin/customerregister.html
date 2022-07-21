@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
@@ -11,6 +12,12 @@
     <title>Registration Form</title>
 </head>
 <style>
+
+    .errorlist
+    {
+      list-style-type: none;
+      color: red;
+    }
      input[type="text"],
     select {
       width: 35%;
@@ -82,6 +89,9 @@
       background-color: #f8beed;
       padding: 20px;
       width: 50%;
+      margin: auto;
+      text-align: center;
+      
     }
 .success{
   list-style:none;
@@ -93,15 +103,14 @@
 
 </style>
 <body>
- 
-    {{ forms.errors }}
-
-  <center>
   <div>
-    <form method="POST">
+    <form method="POST" >
         {% csrf_token %} 
       <label> Username </label>
       {{forms.username}}
+        {{ forms.username.errors }}
+     
+  
       <br><br>
       <label> Name </label>
       {{forms.name}}
@@ -136,6 +145,5 @@
     
 </form>
 </div>
-</center>
 </body>
 </html>

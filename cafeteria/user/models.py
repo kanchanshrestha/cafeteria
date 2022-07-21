@@ -15,7 +15,7 @@ class User(AbstractUser):
     balance=models.IntegerField(null=True,blank=True)
     # add_balance=models.IntegerField(null=True,blank=True)
     class Meta:
-        db_table="User"
+        db_table="users"
 
 
 class Transaction(models.Model):
@@ -28,7 +28,7 @@ class Transaction(models.Model):
     transaction_type=models.CharField(max_length=20,null=True,blank=True)
     
     class Meta:
-        db_table="Transaction"
+        db_table="transaction"
     
 
 

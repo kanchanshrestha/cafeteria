@@ -3,6 +3,7 @@ from django import forms
 from cafecustomer.models import Customer
 from cafecustomer.models import Login
 from user.models import User
+from django.forms import ValidationError
 GENDER=[
     ('M','Male'),
     ('F','Female'),
@@ -35,9 +36,27 @@ class LoginForm(forms.ModelForm):
         fields='__all__'
         widgets={
             'username':forms.TextInput(attrs={"placeholder":"Enter Your Username"}),
-            'password':forms.PasswordInput(attrs={"placeholder":"Enter Your Password"})
+            "password":forms.PasswordInput(attrs={'placeholder':'********','autocomplete': 'off','data-toggle': 'password'}),
+            # 'password':forms.PasswordInput(attrs={"placeholder":"Enter Your Password"})
         }
 
+    # def clean_username(self):
+    #     username = self.cleaned_data.get('username')
+    #     if not username:
+    #             raise forms.ValidationError('This Field is Required')
+    #     user=User.objects.filter(username=username).exists()
+    #     if not user:
+    #         raise ValidationError('\n Couldnot find Your Account')
+    #     return username
+
+    def clean_password(self):
+        password = self.cleaned_data.get('password')
+        if not password:
+            raise forms.ValidationError('This Field is Required')
+        user=User.objects.filter(password=password).exists()
+        if not user:
+            raise ValidationError('\n Invalid credentials ')
+        return password
 class AddBalance(forms.ModelForm):
 	class Meta:
 		model = User

@@ -46,8 +46,10 @@ class UserForm(forms.ModelForm):
         #     return username
         user=User.objects.filter(username=username).exists()
         if user:
-            raise ValidationError(username +'already exist, Choose another Username')
+            raise ValidationError(username + '\n already exist, Choose another Username')
         return username
+
+    
 
 
 class UpdateForm(forms.ModelForm):
