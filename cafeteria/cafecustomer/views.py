@@ -1,3 +1,4 @@
+from urllib import request
 from django.shortcuts import render,redirect
 from cafecustomer.models import Customer
 from user.models import Transaction
@@ -11,6 +12,9 @@ from .forms import AddBalance
 from django.contrib import messages
 from django.db import transaction
 from django.contrib.auth.decorators import login_required
+from .decorators import customer_only
+from .decorators import admin_only
+from datetime import date,datetime
 
 @transaction.atomic
 def registration(request):
@@ -49,6 +53,7 @@ def registration(request):
 
 
 @login_required(login_url='/customer/login')
+# @customer_only
 def updateregisterform(request,id):
     customer=User.objects.get(id=id)
     forms=UpdateRegister(instance=customer)
@@ -95,6 +100,7 @@ def updateregisterform(request,id):
   
 #     return render (request,'customerlogin/customerlogin.html',context)
 
+
 def loginform(request):
     forms=LoginForm()
     if request.method=='POST':
@@ -111,7 +117,7 @@ def loginform(request):
             elif user.is_customer==1:
                 messages.success(request,"Login Sucessful") 
                 return redirect('/customer/dashboard')
-    
+   
             
     context={
         "forms":forms
@@ -128,6 +134,7 @@ def loginform(request):
 
 
 @login_required(login_url='/customer/login')
+# @customer_only
 def dashboard(request):
         transactions=Transaction.objects.filter(user_id=request.user.id)
         user=User.objects.get(id=request.user.id)
@@ -159,14 +166,17 @@ def viewtransactionlist(request):
 #     }
 #     return render(request,'customerlogin/transaction_list.html',transactionlist)
 
-
+@transaction.atomic
 @login_required(login_url='/customer/login')
+# @customer_only
 def addbalance(request, id):
     print(request)
     forms = AddBalance(request.POST)
     if request.method=="POST":
         user=User.objects.get(id=id)
+        today=datetime.now()
         user=User.objects.filter(id=id).update(balance= user.balance + int(request.POST['balance']))
+        Transaction.objects.create(user_id=request.user.id,description="Top Up",date=today,time=today,amount=request.POST["balance"],transaction_type="Top Up")
         messages.success(request,"Balance Added Sucessfully To Your Account") 
         return redirect('/customer/dashboard/')
 
@@ -177,10 +187,20 @@ def addbalance(request, id):
     }
     return render(request,'customerlogin/add_balance.html',add)
 
+# from datetime import date,datetime
+
+# today = datetime.now()
+# print("Today's date:", today)
+# print(today.strftime("%Y:%m:%D")
+# print(today.strftime("%H:%M:%S")
+# )
+# @customer_only
 def user_logout(request):
-    logout(request)
     messages.success(request,'Logout Sucessful')
+    logout(request)
+    
     return redirect('/customer/login')
+
 
 def edit_picture(request):
     pass

@@ -105,7 +105,15 @@
 
 </style>
 <body>
-
+  {% if messages  %}
+  <div id = "animated-example" class = "animated fadeOut">
+  <ul class="message"> 
+    {%for message in messages %}
+    <li {% if message.tags  %} class="{{message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor%}
+  </ul>
+  </div>
+{% endif %}
   <div>
 
     <form method="POST">

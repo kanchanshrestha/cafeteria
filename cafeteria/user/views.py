@@ -8,9 +8,12 @@ from django. http import HttpResponse
 from django.contrib import messages
 from django.db import transaction
 from django.contrib.auth.decorators import login_required
+# from .decorators import customer_only
+# from .decorators import admin_only
 # Create your views here.
 
 @login_required(login_url='/customer/login')
+# @admin_only
 def admin(request):
     user=User.objects.all().exclude(is_superuser=1)
     totalnumber=user.count()
@@ -24,6 +27,7 @@ def admin(request):
 
 
 @login_required(login_url='/customer/login')
+# @admin_only
 def updatecustomer(request,id): 
     customer=User.objects.get(id=id)
     forms=UpdateForm(instance=customer)
@@ -41,6 +45,7 @@ def updatecustomer(request,id):
     return render(request,'userregister/userregister.html',cupdate)
 
 @login_required(login_url='/customer/login')
+# @admin_only
 def deletecustomer(request,id):
     user=User.objects.get(id=id)
     if request.method == 'POST':
@@ -52,9 +57,9 @@ def deletecustomer(request,id):
 
 
 @login_required(login_url='/customer/login')
+# @admin_only
 def addtransaction(request,id):
     user=User.objects.get(id=id)
-    Transaction.objects.get(id=id)
     forms=TransactionForm()
     if request.method=="POST":
         forms=TransactionForm(request.POST)

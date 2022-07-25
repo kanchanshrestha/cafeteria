@@ -24,7 +24,7 @@ class CustomerForm(forms.ModelForm):
             'city':forms.TextInput(attrs={"placeholder":"Enter your City"}),
             'country':forms.TextInput(attrs={"placeholder":"Enter Your Country"}),
             'dob':forms.DateInput(attrs={"type":"date"}),
-            'gender':forms.RadioSelect(choices=GENDER),
+            'gender':forms.Select(choices=GENDER),
             'occupation':forms.TextInput(attrs={"placeholder":"Enter Your Occupation"}),
             }
         
@@ -74,6 +74,6 @@ class UpdateRegister(forms.ModelForm):
             'city':forms.TextInput(attrs={"placeholder":"Enter your City"}),
             'country':forms.TextInput(attrs={"placeholder":"Enter Your Country"}),
             'dob':forms.DateInput(attrs={"type":"date"}),
-            'gender':forms.RadioSelect(choices=GENDER),
+            'gender':forms.Select(choices=GENDER),
             'occupation':forms.TextInput(attrs={"placeholder":"Enter Your Occupation"}),
             }
